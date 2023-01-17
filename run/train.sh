@@ -1,5 +1,5 @@
-python -u drive/MyDrive/KgpInternship/HyperspecAE/src/train.py
-	-src_dir drive/MyDrive/KgpInternship/HyperspecAE/data/data.mat
+python -u HyperspecAE/src/train.py\
+	-src_dir HyperspecAE/data/data.mat\
 	-num_bands 3\
 	-end_members 2\
 	-encoder_type deep\

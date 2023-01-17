@@ -41,7 +41,7 @@ def train(opt):
 
         for batch__ in range(max_batches):
         
-            X, _ = next(iterator)
+            X = next(iterator)
             X = X.view(X.size()[0], -1)
             X = X.cuda()
 

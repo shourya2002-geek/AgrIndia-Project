@@ -35,16 +35,13 @@ class Samson(data.Dataset):
             tuple: (image, target) where target is abundance fractions for each pixel.
         """
         
-        img, target = self.train_data[index], self.labels[index]
+        img = self.train_data[index]
         
 
         if self.transform is not None:
             img = torch.tensor(img)
 
-        if self.target_transform is not None:
-            target = torch.tensor(target)
-
-        return img, target
+        return img
 
     def __len__(self):
         """Return size of dataset."""
