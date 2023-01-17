@@ -16,12 +16,12 @@ def extract_abundances(opt):
                 opt.threshold, opt.encoder_type)
     
     
-    checkpoint = torch.load(opt.ckpt)
+    checkpoint = torch.load('HyperspecAE/logs/final_model.pt',map_location ='cpu')
     model.load_state_dict(checkpoint['model_state_dict'])
 
     model.to('cpu')
 
-    N_COLS = 3
+    N_COLS = 2
     N_ROWS = 1
     view_data = [test_set[i][0] for i in range(N_ROWS * N_COLS)]
     plt.figure(figsize=(25, 25))
@@ -37,11 +37,11 @@ def extract_abundances(opt):
             img = test_set.train_data
             img = torch.tensor(img)
             e, y = model(img.float())
-            plt.imshow(e.detach().squeeze().numpy().T[i].reshape(95, 95))
+            plt.imshow(e.detach().squeeze().numpy().T[i].reshape(200, 200))
             #plt.gray()
             ax.get_xaxis().set_visible(False)
             ax.get_yaxis().set_visible(False)
-    plt.savefig(f'{opt.save_dir}/abundances.png')
+    plt.savefig("abundances.png")
     plt.show()
     
 def extract_endmembers(opt):
@@ -51,11 +51,11 @@ def extract_endmembers(opt):
                 opt.threshold, opt.encoder_type)
 
 
-    checkpoint = torch.load(opt.ckpt)
+    checkpoint = torch.load('HyperspecAE/logs/final_model.pt',map_location ='cpu')
     model.load_state_dict(checkpoint['model_state_dict'])
 
     model.to('cpu')
-    N_COLS = 3
+    N_COLS = 2
     N_ROWS = 1
 
     view_data = [test_set[i][0] for i in range(N_ROWS * N_COLS)]
@@ -72,7 +72,7 @@ def extract_endmembers(opt):
       
             e = model.decoder.weight
             plt.plot(e.detach().squeeze().numpy().T[i])
-    plt.savefig(f'{opt.save_dir}/end_members.png')
+    plt.savefig("end_members.png")
     plt.show()
     
 def _get_parser():

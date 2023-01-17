@@ -31,7 +31,7 @@ def train(opt):
     
     
     if opt.train_from:
-        checkpoint = torch.load(opt.train_from)
+        checkpoint = torch.load(opt.train_from,map_location ='cpu')
         model.load_state_dict(checkpoint['model_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
 
@@ -69,14 +69,15 @@ def train(opt):
             torch.save({
             'model_state_dict': model.state_dict(),
             'optimizer_state_dict': optimizer.state_dict()
-            }, f"{opt.save_dir}/hyperspecae_{epoch+1}.pt")
+            }, "HyperspecAE/logs/final_model_{epoch+1}.pt")
     
     torch.save({
             'model_state_dict': model.state_dict(),
             'optimizer_state_dict': optimizer.state_dict()
-            }, f"{opt.save_dir}/hyperspecae_final.pt")
+            }, "HyperspecAE/logs/final_model.pt")
             
     print('Training Finished!')
+
     
 def _get_parser():
     parser = ArgumentParser(description='train.py')

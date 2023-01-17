@@ -12,11 +12,6 @@ import torchvision.transforms as tvtf
 
 class Samson(data.Dataset):
 
-    img_folder = 'Data_Matlab'
-    gt_folder = 'GroundTruth'
-    training_file = 'samson_1.mat'
-    labels_file = 'end3.mat'
-
     def __init__(self, root, transform=None, target_transform=None):
         """Init Samson dataset."""
         super(Samson, self).__init__()
@@ -25,17 +20,12 @@ class Samson(data.Dataset):
         self.transform = transform
         self.target_transform = target_transform
 
-        if not self._check_exists():
-            raise RuntimeError("Dataset not found." + " You can use 'https://rslab.ut.ac.ir/data' to download it")
 
-        PATH = os.path.join(self.root, self.img_folder, self.training_file)
-        PATH_L = os.path.join(self.root, self.gt_folder, self.labels_file)
+        PATH = "HyperspecAE/data/data.mat"
 
         training_data = scipy.io.loadmat(PATH)
-        labels = scipy.io.loadmat(PATH_L)
 
         self.train_data = training_data['V'].T
-        self.labels = labels['A'].T
 
     def __getitem__(self, index):
         """Get images and target for data loader.
@@ -60,13 +50,6 @@ class Samson(data.Dataset):
         """Return size of dataset."""
 
         return len(self.train_data)
-        
-
-    def _check_exists(self):
-        """Check if the path specified exists."""
-        return os.path.exists(os.path.join(self.root, self.img_folder, self.training_file)) and os.path.exists(
-            os.path.join(self.root, self.gt_folder, self.labels_file)
-        )
         
         
 def get_dataloader(BATCH_SIZE: int, DIR):

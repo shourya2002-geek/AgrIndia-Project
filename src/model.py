@@ -10,7 +10,7 @@ from torch.autograd import Variable, Function
 from layers import GaussianDropout, ASC
 
 class HyperspecAE(nn.Module):
-    def __init__(self, num_bands: int=156, end_members: int=3, dropout: float=1.0,
+    def __init__(self, num_bands: int=3, end_members: int=2, dropout: float=1.0,
                  activation: str='ReLU', threshold: int=5, ae_type: str='deep'):
       # Constructor
       super(HyperspecAE, self).__init__()
